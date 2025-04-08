@@ -1,0 +1,1 @@
+import{t as e,a as o}from"../chunks/V93zohQK.js";import"../chunks/D1CwT7pM.js";var r=e('<div class="w-[100vw] h-[100vh] bg-gray-950 flex"><h1 class="text-8xl m-auto text-amber-300">/</h1></div>');function s(a){var t=r();o(a,t)}export{s as component};
