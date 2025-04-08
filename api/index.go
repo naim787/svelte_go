@@ -1,20 +1,34 @@
-package main
+package handler
 
 import (
-	"log"
+	"fmt"
+	"net/http"
 
-	"github.com/gofiber/fiber/v2"
+	. "github.com/tbxark/g4vercel"
 )
 
-func main() {
+func Handler(w http.ResponseWriter, r *http.Request) {
+	server := New()
+	
+	server.Use(Recovery(func(err interface{}, c *Context) {
+		if httpError, ok := err.(HttpError); ok {
+			c.JSON(httpError.Status, H{
+				"message": httpError.Error(),
+			})
+		} else {
+			message := fmt.Sprintf("%s", err)
+			c.JSON(500, H{
+				"message": message,
+			})
+		}
+	}))
 
-	// Membuat instance Fiber
-	app := fiber.New()
 
-	// Menyajikan file statis
-	app.Static("/", "../build")
-
-	// Menjalankan server di port 3000
-	log.Println("Server berjalan di http://localhost:3000")
-	log.Fatal(app.Listen(":3000"))
+	server.GET("/", func(context *Context) {
+		context.JSON(200, H{
+			"message": "OK",
+		})
+	})
+	
+	server.Handle(w, r)
 }

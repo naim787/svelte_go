@@ -1,26 +1,5 @@
 {
-    "version": 2,
-    "builds": [
-      {
-        "src": "api/index.go",
-        "use": "@vercel/go",
-        "config": {
-          "maxDuration": 10,
-          "env": {
-            "GO_BUILD_FLAGS": "-ldflags '-s -w'"
-          }
-        }
-      },
-      {
-        "src": "sveltekit-app/build/**",
-        "use": "@vercel/static"
-      }
-    ],
-    "routes": [
-      {
-        "src": "/(.*)",
-        "dest": "api/index.go"
-      }
-    ]
-  }
-  
+  "routes": [
+    { "src": "/(.*)", "dest": "/api" }
+  ]
+}
